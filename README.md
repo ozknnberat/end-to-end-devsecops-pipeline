@@ -20,4 +20,24 @@ graph LR
     C -- "Temiz" --> D["🐍 SAST Analizi (Bandit)"]
     D -- "Hata Bulundu" --> F
     D -- "Temiz" --> E["🚀 Fake Deploy (Success)"]
-    
+
+```
+Bu projede gerçek bir DevSecOps döngüsü uygulanmıştır:
+Hatalı Kod Gönderimi (Fail Senaryosu):
+Uygulama içine bilerek DB_PASSWORD hardcoded olarak yazıldı.
+Uygulama 0.0.0.0 (tüm ağlara açık) adresine bind edildi.
+Sonuç: Pipeline, Gitleaks ve Bandit aşamalarında hata vererek dağıtımı durdurdu. 🛑
+Güvenlik İyileştirmesi (Fix):
+Şifreler os.environ.get ile ortam değişkenlerine taşındı.
+Host adresi 127.0.0.1 (Localhost) olarak güncellendi.
+Başarılı Dağıtım (Success Senaryosu):
+Düzeltilen kod tekrar push edildi.
+Sonuç: Tüm güvenlik taramaları başarıyla geçildi ve deploy işlemi gerçekleşti. ✅
+
+📂 Proje Yapısı
+Bash
+.
+├── .github/workflows/main.yml  # CI/CD Pipeline Konfigürasyonu
+├── app.py                      # Flask Web Uygulaması (Güvenli Hale Getirilmiş)
+├── requirements.txt            # Proje Bağımlılıkları
+└── README.md                   # Proje Dokümantasyonu
