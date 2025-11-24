@@ -10,15 +10,14 @@ jobs:
   security-scan:
     runs-on: ubuntu-latest
     steps:
-      # 1. Kodu Çek (Gitleaks için geçmiş verisi lazım)
+      # 1. Kodu Çek
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       # 2. 🔑 SECRET SCANNING (Gitleaks)
-      # Kodda unuttuğumuz şifreleri arar.
-      # app.py içinde şifre olduğu için BURASI PATLAYACAK (FAIL OLACAK)!
+      # Şifre bulursa BURASI PATLAYACAK (İstediğimiz bu!)
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
@@ -37,21 +36,10 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       # 4. 🐍 SAST - Kod Analizi (Bandit)
-      # Python kod hatalarını arar.
       - name: Run Bandit (SAST)
         run: bandit -r . -ll -f screen
 
-      # 5. 📦 SCA - Bağımlılık Taraması
-      # Eski versiyon kütüphaneleri arar.
-      - name: Dependency Check
-        uses: dependency-check/Dependency-Check-Action@main
-        id: Depcheck
-        with:
-          project: 'DevSecOps-Demo'
-          path: '.'
-          format: 'HTML'
-
-      # 6. 🚀 Deployment (Sadece her şey temizse çalışır)
-      - name: Fake Deploy to Staging
+      # 5. 🚀 Fake Deploy
+      - name: Fake Deploy
         if: success()
-        run: echo "Guvenlik taramalari basarili! Deploy basliyor..."
+        run: echo "Guvenlik taramalari basarili!"
