@@ -3,17 +3,18 @@ import os
 
 app = Flask(__name__)
 
-# 🚨 GÜVENLİK AÇIĞI BURADA! 🚨
-# Gerçek projelerde şifreler asla böyle kodun içine AÇIKÇA yazılmaz.
-# Biz bunu DevSecOps pipeline'ımızın (Gitleaks) yakalayıp yakalamayacağını test etmek için bilerek yapıyoruz.
-# Bu bir "Yem"dir.
-
-DB_USER = "admin"
-DB_PASSWORD = "super_secret_password_123" 
+# ✅ GÜVENLİ YÖNTEM:
+# Şifreler kodun içinde değil, ortam değişkenlerinde (Environment Variables) saklanır.
+# Eğer şifre yoksa boş döner, kod patlamaz ama şifre de ifşa olmaz.
+DB_USER = os.environ.get("DB_USER", "admin")
+DB_PASSWORD = os.environ.get("DB_PASSWORD") 
 
 @app.route('/')
 def hello():
-    return "DevSecOps Pipeline Test Uygulamasi Calisiyor!"
+    return "Guvenli DevSecOps Uygulamasi - Security Check Passed! ✅"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    # ✅ GÜVENLİ YÖNTEM:
+    # 0.0.0.0 yerine 127.0.0.1 kullanarak sadece local erişime izin verdik.
+    # Bandit artık hata vermeyecek.
+    app.run(host='127.0.0.1', port=5000)
