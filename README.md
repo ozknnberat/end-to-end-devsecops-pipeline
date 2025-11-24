@@ -23,13 +23,24 @@ graph LR
 
 ```
 Bu projede gerçek bir DevSecOps döngüsü uygulanmıştır:
+
 Hatalı Kod Gönderimi (Fail Senaryosu):
+
 Uygulama içine bilerek DB_PASSWORD hardcoded olarak yazıldı.
+
 Uygulama 0.0.0.0 (tüm ağlara açık) adresine bind edildi.
+
 Sonuç: Pipeline, Gitleaks ve Bandit aşamalarında hata vererek dağıtımı durdurdu. 🛑
+
 Güvenlik İyileştirmesi (Fix):
+
 Şifreler os.environ.get ile ortam değişkenlerine taşındı.
+
 Host adresi 127.0.0.1 (Localhost) olarak güncellendi.
+
 Başarılı Dağıtım (Success Senaryosu):
+
 Düzeltilen kod tekrar push edildi.
+
 Sonuç: Tüm güvenlik taramaları başarıyla geçildi ve deploy işlemi gerçekleşti. ✅
+
