@@ -21,9 +21,3 @@ graph LR
     D -- "Hata Bulundu" --> F
     D -- "Temiz" --> E["🚀 Fake Deploy (Success)"]
     
-Araç,Kategori,Kullanım Amacı
-GitHub Actions,CI/CD,Otomasyon süreçlerini ve pipeline yönetimini sağlar.
-Python (Flask),Uygulama,Güvenlik testlerinin yapıldığı örnek web uygulaması.
-Gitleaks,Secret Scanning,Kod içinde unutulan API anahtarları ve şifreleri tarar.
-Bandit,SAST,Python kodundaki güvenlik açıklarını (örn. 0.0.0.0 binding) tespit eder.
-
