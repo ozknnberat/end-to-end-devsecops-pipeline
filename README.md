@@ -14,9 +14,9 @@ Bu pipeline, kod GitHub'a gönderildiği anda otomatik olarak tetiklenir ve aşa
 
 ```mermaid
 graph LR
-    A[Geliştirici Commit] --> B{GitHub Actions};
-    B --> C[🔑 Secret Scanning (Gitleaks)];
-    C -- Şifre Bulundu --> F[⛔ Pipeline FAIL];
-    C -- Temiz --> D[🐍 SAST Analizi (Bandit)];
-    D -- Hata Bulundu --> F;
-    D -- Temiz --> E[🚀 Fake Deploy (Success)];
+    A["Geliştirici Commit"] --> B{"GitHub Actions"}
+    B --> C["🔑 Secret Scanning (Gitleaks)"]
+    C -- "Şifre Bulundu" --> F["⛔ Pipeline FAIL"]
+    C -- "Temiz" --> D["🐍 SAST Analizi (Bandit)"]
+    D -- "Hata Bulundu" --> F
+    D -- "Temiz" --> E["🚀 Fake Deploy (Success)"]
